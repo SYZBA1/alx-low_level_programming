@@ -2,7 +2,7 @@
 
 
 /**
- * main - Prints "eith proper grammer, but the outcome is
+ * main - Prints "with proper grammer, but the outcome is
  *  a piece of art," followed by new line.  
  * Return: Always 0.
  */
