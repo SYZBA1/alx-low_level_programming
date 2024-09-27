@@ -1,62 +1,39 @@
 #include "search_algos.h"
 
 /**
- * recursive_search - A function that searches for a value in an array of
- * integers using the Binary search algorithm
- *
- *
- * @array: Array to search
- * @size: Array size
- * @value: Search value
- * Return: Index of value or -1.
- */
-int recursive_search(int *array, size_t size, int value)
-{
-	size_t i;
-	size_t mid_point = size / 2;
-
-	if (array == NULL || size == 0)
-		return (-1);
-
-	printf("Searching in array");
-
-	for (i = 0; i < size; i++)
-		printf("%s %d", (i == 0) ? ":" : ",", array[i]);
-
-	printf("\n");
-
-	if (mid_point && size % 2 == 0)
-		mid_point--;
-
-	if (value == array[mid_point])
-		return ((int)mid_point);
-
-	if (value < array[mid_point])
-		return (recursive_search(array, mid_point, value));
-
-	mid_point++;
-
-	return (recursive_search(array + mid_point,
-				 size - mid_point, value) + mid_point);
-}
-
-/**
- * binary_search - A function that searches for a value in an array of
- * integers using the Binary search algorithm
- *
- * @array: Array input
- * @size: Array size
- * @value: Search value
- * Return: Index of value or -1
- */
+  * binary_search - Searches for a value in a sorted array
+  *                 of integers using binary search.
+  * @array: A pointer to the first element of the array to search.
+  * @size: The number of elements in the array.
+  * @value: The value to search for.
+  *
+  * Return: If the value is not present or the array is NULL, -1.
+  *         Otherwise, the index where the value is located.
+  *
+  * Description: Prints the [sub]array being searched after each change.
+  */
 int binary_search(int *array, size_t size, int value)
 {
-	int idx;
+	size_t i, left, right;
 
-	idx = recursive_search(array, size, value);
-
-	if (idx >= 0 && array[idx] != value)
+	if (array == NULL)
 		return (-1);
 
-	return (idx);
+	for (left = 0, right = size - 1; right >= left;)
+	{
+		printf("Searching in array: ");
+		for (i = left; i < right; i++)
+			printf("%d, ", array[i]);
+		printf("%d\n", array[i]);
+
+		i = left + (right - left) / 2;
+		if (array[i] == value)
+			return (i);
+		if (array[i] > value)
+			right = i - 1;
+		else
+			left = i + 1;
+	}
+
+	return (-1);
 }
